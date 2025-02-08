@@ -1,0 +1,227 @@
+/* Base styles */
+.stApp {
+  background-color: #F1F1F1;
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 200;
+  color: #474747;
+}
+
+/* Input controls */
+input[type='number'] {
+  max-width: 80%;
+}
+
+.stTextInput>div>div>input,
+.stSelectbox>div>div>input {
+  background-color: #F1F1F1;
+  color: #9a07fc;
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 200;
+}
+
+/* Headers */
+h1, h2, h3, h4 { 
+  font-weight: 400;
+  color: #040914;
+  font-family: 'Helvetica Neue', Helvetica;
+}
+
+/* Controls section */
+.controls {
+  background-color: #F1F1F1;
+  padding: 0 20px 20px 20px;
+  cursor: move;
+  opacity: 0.85;
+  transition: opacity 500ms 1s;
+  border: 1px solid #dd0404;
+}
+
+.controls:hover {
+  opacity: 0.95;
+  transition-delay: 0;
+}
+
+/* Sidebar styling */
+[data-testid="stSidebar"] {
+  background-color: #084a88;
+}
+
+/* Sidebar text color */
+[data-testid="stSidebar"] .stMarkdown,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] .stTitle {
+  color: white !important;
+}
+
+/* Sidebar button styles */
+[data-testid="stSidebar"] .stButton>button {
+  background-color: white;
+  color: #084a88;
+  border: none;
+  width: 100%;
+}
+
+[data-testid="stSidebar"] .stButton>button:hover {
+  background-color: #f0f0f0;
+}
+
+/* Citation style */
+.citation {
+  font-size: 12px;
+  margin: 10px;
+}
+
+/* Popup styles */
+.custom-popup .stMarkdown {
+  background-color: #f00404;
+  color: white;
+}
+
+/* Date range input */
+.dateRangeInput-container {
+  color: #0834a4;
+}
+
+/* Select input styling */
+.selectize-control.single .selectize-input,
+.selectize-control.single .selectize-input input {
+  background-color: #0834a4;
+}
+
+/* Multiselect container styling */
+[data-testid="stMultiSelect"] div[data-baseweb="select"] {
+  background-color: #0834a4;
+  border-radius: 4px;
+  border: 1px solid #575757;
+}
+
+/* Multiselect dropdown background
+div[role="listbox"] {
+  background-color: #1E1E1E !important;
+  border: 1px solid #333 !important;
+} */
+
+/* Selected tags/chips styling */
+[data-testid="stMultiSelect"] div[data-baseweb="tag"] {
+  background-color: #ff4757 !important;
+  border: none !important;
+  border-radius: 4px !important;
+  color: white !important;
+  padding: 2px 8px !important;
+  margin: 2px !important;
+}
+
+/* Close button (x) in tags */
+[data-testid="stMultiSelect"] div[data-baseweb="tag"] span[role="button"] {
+  color: white !important;
+  padding-left: 4px !important;
+}
+
+/* Dropdown options styling */
+div[role="option"] {
+  color: white !important;
+}
+
+div[role="option"]:hover {
+  background-color: #333 !important;
+}
+
+/* Input text color */
+[data-testid="stMultiSelect"] input {
+  color: white !important;
+}
+
+/* Download button */
+.stDownloadButton>button {
+  background-color: #0834a4;
+  border-color: #0834a4;
+  color: white;
+}
+
+.stDownloadButton>button:hover {
+  background-color: #0a4dcb;
+  border-color: #0a4dcb;
+} 
+
+/* Custom horizontal rules */
+hr.custom-hr {
+  border-top: 2px solid #2b2d30;
+  margin: 20px 0;
+}
+
+hr.custom-hr_v2 {
+  border-top: 0.001px solid #CCCED1;
+  margin: 15px 0;
+}
+
+/* Button styles */
+.stButton>button {
+  background-color: #e0e2e6;
+  color: white;
+  border: none;
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 200;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.stButton>button:hover {
+  background-color: #e0e2e6;
+}
+
+/* DataFrame styling */
+.dataframe {
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 200;
+}
+
+.dataframe th {
+  background-color: #0834a4;
+  color: white;
+}
+
+/* Expander styling */
+.streamlit-expanderHeader {
+  background-color: #F1F1F1;
+  color: #232425;
+  font-family: 'Helvetica Neue', Helvetica;
+  font-weight: 200;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #c7d3df;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0834a4;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0834a4;
+}
+
+/* Links */
+a {
+  color: #0834a4;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #0a4dcb;
+  text-decoration: underline;
+}
+
+/* Metrics */
+.stMetric {
+  background-color: #F1F1F1;
+  border: 1px solid #0834a4;
+  padding: 1rem;
+  color: #565657;
+}
