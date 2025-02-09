@@ -9,30 +9,28 @@ import pathlib
 import os
 
 
-import streamlit as st
-import pandas as pd
-import numpy as np
-import math
-from scipy.stats import chi2
-import io
-from datetime import datetime, timedelta
-import pathlib
-import os
-
-
 def inject_custom_css():
     custom_css = """
-    /* File uploader styling */
-    [data-testid="stFileUploader"] {
-        width: 100%;
+    /* Dropdown and input styling */
+    [data-testid="stSelectbox"] select {
+        color: #2c3338 !important;  /* Dark grey for input text */
     }
 
-    [data-testid="stFileUploader"] div[data-testid="stMarkdownContainer"] {
+    [data-testid="stSelectbox"] div[data-baseweb="select"] {
+        background-color: white !important;
+    }
+
+    [data-testid="stSelectbox"] div[data-baseweb="select"] div {
+        color: #2c3338 !important;  /* Dark grey for dropdown text */
+    }
+
+    /* Selectbox label styling */
+    [data-testid="stSelectbox"] label {
         color: white !important;
-        font-weight: 400 !important;
+        font-weight: 500 !important;
     }
 
-    /* File upload drag and drop area */
+    /* File uploader styling */
     [data-testid="stFileUploader"] section {
         border: 2px dashed rgba(255, 255, 255, 0.4) !important;
         border-radius: 4px !important;
@@ -40,49 +38,47 @@ def inject_custom_css():
         background-color: rgba(255, 255, 255, 0.05) !important;
     }
 
-    /* Upload text styling */
-    [data-testid="stFileUploader"] section p {
+    [data-testid="stFileUploader"] section p,
+    [data-testid="stFileUploader"] section span {
         color: white !important;
-        font-weight: 400 !important;
     }
 
-    /* File size limit text */
     [data-testid="stFileUploader"] small {
         color: rgba(255, 255, 255, 0.8) !important;
     }
 
-    /* Uploaded file info */
-    [data-testid="stFileUploader"] .uploadedFileName {
+    /* Expander text color */
+    [data-testid="stSidebar"] .streamlit-expanderContent {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+
+    [data-testid="stSidebar"] .streamlit-expanderContent p {
         color: white !important;
     }
 
-    /* Select sheet dropdown */
-    .stSelectbox label {
+    /* Help text in sidebar */
+    [data-testid="stSidebar"] .stMarkdown {
         color: white !important;
-        font-weight: 500 !important;
     }
 
-    /* File removal button */
-    [data-testid="stFileUploader"] button {
-        color: white !important;
-        opacity: 0.8;
-    }
-
-    [data-testid="stFileUploader"] button:hover {
-        opacity: 1;
-    }
-
-    /* Rest of your existing styles */
+    /* Base sidebar styles */
     [data-testid="stSidebar"] {
         background-color: #084a88 !important;
     }
 
-    [data-testid="stSidebar"] .stMarkdown,
-    [data-testid="stSidebar"] label,
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] span,
-    [data-testid="stSidebar"] div {
+    /* Labels and headers in sidebar */
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] h4,
+    [data-testid="stSidebar"] label {
         color: white !important;
+        font-weight: 500 !important;
+    }
+
+    /* Dropdown option hover state */
+    .stSelectbox div[role="option"]:hover {
+        background-color: rgba(8, 74, 136, 0.1) !important;
     }
 
     /* Your existing tab styles */
