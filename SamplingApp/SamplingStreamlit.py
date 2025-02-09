@@ -8,76 +8,41 @@ from datetime import datetime, timedelta
 import pathlib
 import os
 from streamlit.components.v1 import html
-import streamlit.components.v1 as components
+# import streamlit.components.v1 as components
 
 
 def inject_custom_css():
     custom_css = """
-	
-	    /* Dark mode transitions */
-    * {
-        transition: background-color 0.3s ease, color 0.3s ease !important;
+    /* Reset default margins and padding */
+    .main > div:first-child {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
     }
-
-    /* Dark mode background colors */
-    .dark [data-testid="stAppViewContainer"],
-    .dark [data-testid="stHeader"] {
-        background-color: #1a1a1a !important;
+    
+    /* Reduce space above tabs */
+    .stTabs {
+        margin-top: -3rem !important;
     }
-
-    /* Dark mode text colors */
-    .dark [data-testid="stMarkdown"] {
-        color: #ffffff !important;
-    }
-
-    /* Dark mode sidebar */
-    .dark [data-testid="stSidebar"] {
-        background-color: #063866 !important;
-    }
-
-    /* Dark mode metrics */
-    .dark [data-testid="metric-container"] {
-        background-color: #2c2c2c !important;
-        border-color: #404040 !important;
-    }
-
-    .dark [data-testid="metric-container"] label {
-        color: #ffffff !important;
-    }
-
-    /* Dark mode table */
-    .dark .dataframe {
-        background-color: #2c2c2c !important;
-    }
-
-    .dark .dataframe th {
-        background-color: #063866 !important;
-        color: white !important;
-    }
-
-    .dark .dataframe td {
-        color: #ffffff !important;
-    }
-	
+    
     /* Dropdown and input styling */
     [data-testid="stSelectbox"] select {
-        color: #2c3338 !important;  /* Dark grey for input text */
+        color: #2c3338 !important;
     }
-
+    
     [data-testid="stSelectbox"] div[data-baseweb="select"] {
         background-color: white !important;
     }
-
+    
     [data-testid="stSelectbox"] div[data-baseweb="select"] div {
-        color: #2c3338 !important;  /* Dark grey for dropdown text */
+        color: #2c3338 !important;
     }
-
+    
     /* Selectbox label styling */
     [data-testid="stSelectbox"] label {
         color: white !important;
         font-weight: 500 !important;
     }
-
+    
     /* File uploader styling */
     [data-testid="stFileUploader"] section {
         border: 2px dashed rgba(255, 255, 255, 0.4) !important;
@@ -85,35 +50,35 @@ def inject_custom_css():
         padding: 1rem !important;
         background-color: rgba(255, 255, 255, 0.05) !important;
     }
-
+    
     [data-testid="stFileUploader"] section p,
     [data-testid="stFileUploader"] section span {
         color: white !important;
     }
-
+    
     [data-testid="stFileUploader"] small {
         color: rgba(255, 255, 255, 0.8) !important;
     }
-
+    
     /* Expander text color */
     [data-testid="stSidebar"] .streamlit-expanderContent {
         background-color: rgba(255, 255, 255, 0.1) !important;
     }
-
+    
     [data-testid="stSidebar"] .streamlit-expanderContent p {
         color: white !important;
     }
-
+    
     /* Help text in sidebar */
     [data-testid="stSidebar"] .stMarkdown {
         color: white !important;
     }
-
+    
     /* Base sidebar styles */
     [data-testid="stSidebar"] {
         background-color: #084a88 !important;
     }
-
+    
     /* Labels and headers in sidebar */
     [data-testid="stSidebar"] h1,
     [data-testid="stSidebar"] h2,
@@ -123,20 +88,21 @@ def inject_custom_css():
         color: white !important;
         font-weight: 500 !important;
     }
-
+    
     /* Dropdown option hover state */
     .stSelectbox div[role="option"]:hover {
         background-color: rgba(8, 74, 136, 0.1) !important;
     }
-
-    /* Your existing tab styles */
+    
+    /* Tab styles with reduced spacing */
     .stTabs [data-baseweb="tab-list"] {
         gap: 32px;
         background-color: transparent;
         padding: 0 24px;
+        margin-top: 0;
         margin-bottom: 16px;
     }
-
+    
     .stTabs [data-baseweb="tab"] {
         height: 50px;
         background-color: transparent;
@@ -148,43 +114,6 @@ def inject_custom_css():
     }
     """
     st.markdown(f"<style>{custom_css}</style>", unsafe_allow_html=True)
-
-# Add this function to your code
-
-
-def add_theme_toggle():
-    st.markdown(
-        """
-        <style>
-        /* Theme toggle transitions */
-        * {
-            transition: all 0.3s ease-in-out;
-        }
-        
-        /* Hide Streamlit default menu */
-        button[kind="menuButton"] {
-            display: none;
-        }
-        
-        /* Position the toggle button */
-        .theme-toggle {
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1000;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
-
-    # Create the theme toggle using st.components.v1.html
-    components.html(
-        """
-        <div id="theme-toggle-root"></div>
-        """,
-        height=0,  # Set to 0 to prevent extra space
-    )
 
     # Add the theme toggle component
     st.markdown('<div class="theme-toggle">', unsafe_allow_html=True)
@@ -213,8 +142,9 @@ st.set_page_config(page_title="Sampling Calculator", layout="wide")
 # Add this line right after your st.set_page_config()
 inject_custom_css()
 
+
 # Add this right after your st.set_page_config()
-add_theme_toggle()
+# add_theme_toggle()
 
 
 def calculate_sample(population, params):
