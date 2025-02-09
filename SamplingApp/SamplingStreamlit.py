@@ -9,14 +9,88 @@ import pathlib
 import os
 
 
+import streamlit as st
+import pandas as pd
+import numpy as np
+import math
+from scipy.stats import chi2
+import io
+from datetime import datetime, timedelta
+import pathlib
+import os
+
+
 def inject_custom_css():
     custom_css = """
-    /* Tab styling - Added spacing and improved visibility */
+    /* File uploader styling */
+    [data-testid="stFileUploader"] {
+        width: 100%;
+    }
+
+    [data-testid="stFileUploader"] div[data-testid="stMarkdownContainer"] {
+        color: white !important;
+        font-weight: 400 !important;
+    }
+
+    /* File upload drag and drop area */
+    [data-testid="stFileUploader"] section {
+        border: 2px dashed rgba(255, 255, 255, 0.4) !important;
+        border-radius: 4px !important;
+        padding: 1rem !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    /* Upload text styling */
+    [data-testid="stFileUploader"] section p {
+        color: white !important;
+        font-weight: 400 !important;
+    }
+
+    /* File size limit text */
+    [data-testid="stFileUploader"] small {
+        color: rgba(255, 255, 255, 0.8) !important;
+    }
+
+    /* Uploaded file info */
+    [data-testid="stFileUploader"] .uploadedFileName {
+        color: white !important;
+    }
+
+    /* Select sheet dropdown */
+    .stSelectbox label {
+        color: white !important;
+        font-weight: 500 !important;
+    }
+
+    /* File removal button */
+    [data-testid="stFileUploader"] button {
+        color: white !important;
+        opacity: 0.8;
+    }
+
+    [data-testid="stFileUploader"] button:hover {
+        opacity: 1;
+    }
+
+    /* Rest of your existing styles */
+    [data-testid="stSidebar"] {
+        background-color: #084a88 !important;
+    }
+
+    [data-testid="stSidebar"] .stMarkdown,
+    [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] div {
+        color: white !important;
+    }
+
+    /* Your existing tab styles */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 2px;  /* Increased gap between tabs */
+        gap: 32px;
         background-color: transparent;
-        padding: 0 24px;  /* Added horizontal padding */
-        margin-bottom: 16px;  /* Space below tabs */
+        padding: 0 24px;
+        margin-bottom: 16px;
     }
 
     .stTabs [data-baseweb="tab"] {
@@ -25,73 +99,8 @@ def inject_custom_css():
         border-radius: 4px;
         color: #084a88;
         font-weight: 400;
-        padding: 0 12px;  /* Added padding inside tabs */
-        margin: 0 8px;    /* Added margin around tabs */
-    }
-
-    /* Active tab indicator */
-    .stTabs [aria-selected="true"] {
-        background-color: rgba(8, 74, 136, 0.1) !important;
-        color: #084a88 !important;
-        border-bottom: 2px solid #084a88;  /* Added bottom border for active tab */
-    }
-
-    /* Preview table container */
-    [data-testid="stExpander"] {
-        border: 1px solid #e6e6e6;
-        border-radius: 4px;
-        background-color: white;
-    }
-
-    /* Stats containers */
-    [data-testid="metric-container"] {
-        background-color: white;
-        border: 1px solid #e6e6e6 !important;
-        border-radius: 4px;
-        padding: 1rem;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-
-    /* Rest of your base styles */
-    .stApp {
-        background-color: #F1F1F1;
-        font-family: 'Helvetica Neue', Helvetica;
-        font-weight: 200;
-        color: #474747;
-    }
-
-    [data-testid="stSidebar"] {
-        background-color: #084a88 !important;
-    }
-
-    [data-testid="stSidebar"] .stMarkdown,
-    [data-testid="stSidebar"] label,
-    [data-testid="stSidebar"] .stTitle,
-    [data-testid="stSidebar"] h1,
-    [data-testid="stSidebar"] h2,
-    [data-testid="stSidebar"] h3,
-    [data-testid="stSidebar"] h4,
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] span,
-    [data-testid="stSidebar"] div {
-        color: white !important;
-        font-weight: 500 !important;
-    }
-
-    /* Dark mode support */
-    .dark [data-testid="stTabs"] [data-baseweb="tab"] {
-        color: white !important;
-    }
-
-    .dark [data-testid="stTabs"] [aria-selected="true"] {
-        color: white !important;
-        background-color: rgba(255, 255, 255, 0.1) !important;
-    }
-
-    /* Hover effect for tabs */
-    .stTabs [data-baseweb="tab"]:hover {
-        background-color: rgba(8, 74, 136, 0.05);
-        transition: all 0.2s ease;
+        padding: 0 24px;
+        margin: 0 8px;
     }
     """
     st.markdown(f"<style>{custom_css}</style>", unsafe_allow_html=True)
