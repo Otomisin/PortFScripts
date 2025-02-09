@@ -9,7 +9,15 @@ import pathlib
 import os
 from streamlit.components.v1 import html
 
-st.set_page_config(page_title="Sampling Calculator", layout="wide")
+st.set_page_config(
+    layout="wide",
+    initial_sidebar_state="expanded",
+    page_title="Sampling App",  # Optional: you can customize the page title
+    theme={
+        "base": "light",
+        "primaryColor": "#084a88",  # This matches your sidebar color
+    }
+)
 
 # Define CSS directly in the script
 CUSTOM_CSS = """
@@ -19,9 +27,16 @@ CUSTOM_CSS = """
         margin-top: 0 !important;
     }
     
-    /* Reduce space above tabs */
+    /* Remove space above tabs */
     .stTabs {
-        margin-top: -3rem !important;
+        margin-top: -4rem !important;
+        padding-top: 0 !important;
+    }
+    
+    /* Remove extra padding from main container */
+    .block-container {
+        padding-top: 1rem !important;
+        padding-bottom: 0rem !important;
     }
     
     /* Dropdown and input styling */
