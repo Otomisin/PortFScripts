@@ -116,10 +116,10 @@ from streamlit.components.v1 import html
 
 
 def inject_custom_css():
-    with open('styles.css', 'r') as f:
-        custom_css = f.read()
+    # with open('styles.css', 'r') as f:
+    #     custom_css = f.read()
 
-    st.markdown(f"<style>{custom_css}</style>", unsafe_allow_html=True)
+    # st.markdown(f"<style>{custom_css}</style>", unsafe_allow_html=True)
 
     # Add theme toggle component
     st.markdown('<div class="theme-toggle">', unsafe_allow_html=True)
