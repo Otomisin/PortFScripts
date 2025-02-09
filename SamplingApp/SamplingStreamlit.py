@@ -7,10 +7,58 @@ import io
 from datetime import datetime, timedelta
 import pathlib
 import os
+from streamlit.components.v1 import html
+import streamlit.components.v1 as components
 
 
 def inject_custom_css():
     custom_css = """
+	
+	    /* Dark mode transitions */
+    * {
+        transition: background-color 0.3s ease, color 0.3s ease !important;
+    }
+
+    /* Dark mode background colors */
+    .dark [data-testid="stAppViewContainer"],
+    .dark [data-testid="stHeader"] {
+        background-color: #1a1a1a !important;
+    }
+
+    /* Dark mode text colors */
+    .dark [data-testid="stMarkdown"] {
+        color: #ffffff !important;
+    }
+
+    /* Dark mode sidebar */
+    .dark [data-testid="stSidebar"] {
+        background-color: #063866 !important;
+    }
+
+    /* Dark mode metrics */
+    .dark [data-testid="metric-container"] {
+        background-color: #2c2c2c !important;
+        border-color: #404040 !important;
+    }
+
+    .dark [data-testid="metric-container"] label {
+        color: #ffffff !important;
+    }
+
+    /* Dark mode table */
+    .dark .dataframe {
+        background-color: #2c2c2c !important;
+    }
+
+    .dark .dataframe th {
+        background-color: #063866 !important;
+        color: white !important;
+    }
+
+    .dark .dataframe td {
+        color: #ffffff !important;
+    }
+	
     /* Dropdown and input styling */
     [data-testid="stSelectbox"] select {
         color: #2c3338 !important;  /* Dark grey for input text */
@@ -101,10 +149,72 @@ def inject_custom_css():
     """
     st.markdown(f"<style>{custom_css}</style>", unsafe_allow_html=True)
 
+# Add this function to your code
+
+
+def add_theme_toggle():
+    st.markdown(
+        """
+        <style>
+        /* Theme toggle transitions */
+        * {
+            transition: all 0.3s ease-in-out;
+        }
+        
+        /* Hide Streamlit default menu */
+        button[kind="menuButton"] {
+            display: none;
+        }
+        
+        /* Position the toggle button */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Create the theme toggle using st.components.v1.html
+    components.html(
+        """
+        <div id="theme-toggle-root"></div>
+        """,
+        height=0,  # Set to 0 to prevent extra space
+    )
+
+    # Add the theme toggle component
+    st.markdown('<div class="theme-toggle">', unsafe_allow_html=True)
+    html("""
+        <div id="theme-toggle-wrapper"></div>
+        <script>
+            const root = document.documentElement;
+            const toggle = document.getElementById('theme-toggle-wrapper');
+            
+            // Check system preference
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) {
+                root.classList.add('dark');
+            }
+            
+            // Initialize theme toggle
+            const mountNode = document.getElementById('theme-toggle-wrapper');
+            const root = ReactDOM.createRoot(mountNode);
+            root.render(React.createElement(components['theme-toggle'].default));
+        </script>
+    """, height=50)
+    st.markdown('</div>', unsafe_allow_html=True)
+
 
 st.set_page_config(page_title="Sampling Calculator", layout="wide")
 # Add this line right after your st.set_page_config()
 inject_custom_css()
+
+# Add this right after your st.set_page_config()
+add_theme_toggle()
 
 
 def calculate_sample(population, params):
