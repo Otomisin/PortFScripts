@@ -116,9 +116,6 @@ from streamlit.components.v1 import html
 
 
 def inject_custom_css():
-    import streamlit as st
-    from streamlit.components.v1 import html
-
     with open('styles.css', 'r') as f:
         custom_css = f.read()
 
@@ -129,16 +126,18 @@ def inject_custom_css():
     html("""
         <div id="theme-toggle-wrapper"></div>
         <script>
-            const root = document.documentElement;
+            const documentRoot = document.documentElement;
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             
             if (prefersDark) {
-                root.classList.add('dark');
+                documentRoot.classList.add('dark');
             }
             
             const mountNode = document.getElementById('theme-toggle-wrapper');
-            const root = ReactDOM.createRoot(mountNode);
-            root.render(React.createElement(components['theme-toggle'].default));
+            if (window.ReactDOM && window.React && window.components) {
+                const root = ReactDOM.createRoot(mountNode);
+                root.render(React.createElement(window.components['theme-toggle'].default));
+            }
         </script>
     """, height=50)
     st.markdown('</div>', unsafe_allow_html=True)
