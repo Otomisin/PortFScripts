@@ -129,8 +129,10 @@ def render_about_and_help():
         st.title("PPS Sampling Calculator")
 
         # Load CSS
-        css_path = pathlib.Path("assets/dtmstyle.css")
-        with open(css_path) as f:
+        # css_path = pathlib.Path("assets/dtmstyle.css")
+        # with open(css_path) as f:
+        #     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+        with open("./assets/dtmstyle.css") as f:
             st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
         # Sidebar components
@@ -145,7 +147,8 @@ def render_about_and_help():
 
 
 # Upload and Configure Configuration
-        st.sidebar.header("1. Upload Data")
+        # st.sidebar.header("1. Upload Data")
+        st.sidebar.header("⬆️ 1. Upload Data")
 
         uploaded_file = st.sidebar.file_uploader(
             "Choose an Excel file", type=['xlsx'])
@@ -172,7 +175,7 @@ def render_about_and_help():
                 st.sidebar.markdown(
                     '<div class="sidebar-divider"></div>', unsafe_allow_html=True)
                 st.sidebar.header(
-                    "2. Column Configuration", help="This section allows you to customize how your columns are displayed")
+                    "⚙️ 2.Column Configuration", help="This section allows you to customize how your columns are displayed")
 
                 with st.sidebar.expander("Expand to see needed variables"):
                     # Dropdown selections for columns
@@ -231,7 +234,7 @@ def render_about_and_help():
 
                 st.sidebar.markdown(
                     '<div class="sidebar-divider"></div>', unsafe_allow_html=True)
-                st.sidebar.header("3. Sampling Parameters",
+                st.sidebar.header("🔍 3. Sampling Parameters",
                                   help="Define the Sampling parameters")
 
                 with st.sidebar.expander("Sampling Configuration", expanded=True):
@@ -308,7 +311,7 @@ def render_about_and_help():
                 # Calculate button in sidebar
                 st.sidebar.markdown(
                     '<div class="sidebar-divider"></div>', unsafe_allow_html=True)
-                st.sidebar.header("4. Calculate")
+                st.sidebar.header("🔢 4. Calculate")
                 calculate_button = st.sidebar.button(
                     "Calculate Random Sampling", type="primary", use_container_width=True)
 
