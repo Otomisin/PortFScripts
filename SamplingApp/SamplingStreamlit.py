@@ -9,15 +9,7 @@ import pathlib
 import os
 from streamlit.components.v1 import html
 
-st.set_page_config(
-    layout="wide",
-    initial_sidebar_state="expanded",
-    page_title="Sampling App",  # Optional: you can customize the page title
-    theme={
-        "base": "light",
-        "primaryColor": "#084a88",  # This matches your sidebar color
-    }
-)
+st.set_page_config(page_title="Sampling Calculator", layout="wide")
 
 # Define CSS directly in the script
 CUSTOM_CSS = """
