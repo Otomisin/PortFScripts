@@ -132,8 +132,7 @@ def render_about_and_help():
         # css_path = pathlib.Path("assets/dtmstyle.css")
         # with open(css_path) as f:
         #     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-        with open("./assets/dtmstyle.css") as f:
-            st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+        css_path = os.path.abspath("assets/dtmstyle.css")
 
         # Sidebar components
         st.sidebar.image(
