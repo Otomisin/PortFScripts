@@ -9,6 +9,8 @@ import pathlib
 import os
 from streamlit.components.v1 import html
 
+st.set_page_config(page_title="Sampling Calculator", layout="wide")
+
 # Define CSS directly in the script
 CUSTOM_CSS = """
     /* Reset default margins and padding */
@@ -137,10 +139,6 @@ def inject_custom_css():
         </script>
     """, height=50)
     st.markdown('</div>', unsafe_allow_html=True)
-
-
-# Inject the custom CSS
-inject_custom_css()
 
 
 # Inject the custom CSS
