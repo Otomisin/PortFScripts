@@ -11,125 +11,131 @@ from streamlit.components.v1 import html
 # import streamlit.components.v1 as components
 
 
-def inject_custom_css():
-    custom_css = """
-    /* Reset default margins and padding */
-    .main > div:first-child {
-        padding-top: 0 !important;
-        margin-top: 0 !important;
-    }
-    
-    /* Reduce space above tabs */
-    .stTabs {
-        margin-top: -3rem !important;
-    }
-    
-    /* Dropdown and input styling */
-    [data-testid="stSelectbox"] select {
+# styles.css
+"""
+/* Reset and Base Styles */
+.main > div:first-child {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/* Tab Container Styling */
+.stTabs {
+    margin-top: -3rem !important;
+}
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 32px;
+    background-color: transparent;
+    padding: 0 24px;
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    height: 50px;
+    background-color: transparent;
+    border-radius: 4px;
+    color: #084a88;
+    font-weight: 400;
+    padding: 0 24px;
+    margin: 0 8px;
+}
+
+/* Dropdown and Select Styling */
+[data-testid="stSelectbox"] {
+    select {
         color: #2c3338 !important;
     }
     
-    [data-testid="stSelectbox"] div[data-baseweb="select"] {
+    div[data-baseweb="select"] {
         background-color: white !important;
+        
+        div {
+            color: #2c3338 !important;
+        }
     }
     
-    [data-testid="stSelectbox"] div[data-baseweb="select"] div {
-        color: #2c3338 !important;
-    }
-    
-    /* Selectbox label styling */
-    [data-testid="stSelectbox"] label {
+    label {
         color: white !important;
         font-weight: 500 !important;
     }
-    
-    /* File uploader styling */
-    [data-testid="stFileUploader"] section {
+}
+
+.stSelectbox div[role="option"]:hover {
+    background-color: rgba(8, 74, 136, 0.1) !important;
+}
+
+/* File Uploader Styling */
+[data-testid="stFileUploader"] {
+    section {
         border: 2px dashed rgba(255, 255, 255, 0.4) !important;
         border-radius: 4px !important;
         padding: 1rem !important;
         background-color: rgba(255, 255, 255, 0.05) !important;
+        
+        p, span {
+            color: white !important;
+        }
     }
     
-    [data-testid="stFileUploader"] section p,
-    [data-testid="stFileUploader"] section span {
-        color: white !important;
-    }
-    
-    [data-testid="stFileUploader"] small {
+    small {
         color: rgba(255, 255, 255, 0.8) !important;
     }
+}
+
+/* Sidebar Styling */
+[data-testid="stSidebar"] {
+    background-color: #084a88 !important;
     
-    /* Expander text color */
-    [data-testid="stSidebar"] .streamlit-expanderContent {
+    .streamlit-expanderContent {
         background-color: rgba(255, 255, 255, 0.1) !important;
+        
+        p {
+            color: white !important;
+        }
     }
     
-    [data-testid="stSidebar"] .streamlit-expanderContent p {
+    .stMarkdown {
         color: white !important;
     }
     
-    /* Help text in sidebar */
-    [data-testid="stSidebar"] .stMarkdown {
-        color: white !important;
-    }
-    
-    /* Base sidebar styles */
-    [data-testid="stSidebar"] {
-        background-color: #084a88 !important;
-    }
-    
-    /* Labels and headers in sidebar */
-    [data-testid="stSidebar"] h1,
-    [data-testid="stSidebar"] h2,
-    [data-testid="stSidebar"] h3,
-    [data-testid="stSidebar"] h4,
-    [data-testid="stSidebar"] label {
+    h1, h2, h3, h4, label {
         color: white !important;
         font-weight: 500 !important;
     }
-    
-    /* Dropdown option hover state */
-    .stSelectbox div[role="option"]:hover {
-        background-color: rgba(8, 74, 136, 0.1) !important;
-    }
-    
-    /* Tab styles with reduced spacing */
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 32px;
-        background-color: transparent;
-        padding: 0 24px;
-        margin-top: 0;
-        margin-bottom: 16px;
-    }
-    
-    .stTabs [data-baseweb="tab"] {
-        height: 50px;
-        background-color: transparent;
-        border-radius: 4px;
-        color: #084a88;
-        font-weight: 400;
-        padding: 0 24px;
-        margin: 0 8px;
-    }
-    """
+}
+
+/* Theme Toggle Component */
+.theme-toggle {
+    margin: 1rem 0;
+}
+"""
+
+# Python function to inject custom CSS
+
+
+def inject_custom_css():
+    import streamlit as st
+    from streamlit.components.v1 import html
+
+    with open('styles.css', 'r') as f:
+        custom_css = f.read()
+
     st.markdown(f"<style>{custom_css}</style>", unsafe_allow_html=True)
 
-    # Add the theme toggle component
+    # Add theme toggle component
     st.markdown('<div class="theme-toggle">', unsafe_allow_html=True)
     html("""
         <div id="theme-toggle-wrapper"></div>
         <script>
             const root = document.documentElement;
-            const toggle = document.getElementById('theme-toggle-wrapper');
-            
-            // Check system preference
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
             if (prefersDark) {
                 root.classList.add('dark');
             }
             
-            // Initialize theme toggle
             const mountNode = document.getElementById('theme-toggle-wrapper');
             const root = ReactDOM.createRoot(mountNode);
             root.render(React.createElement(components['theme-toggle'].default));
@@ -138,13 +144,8 @@ def inject_custom_css():
     st.markdown('</div>', unsafe_allow_html=True)
 
 
-st.set_page_config(page_title="Sampling Calculator", layout="wide")
-# Add this line right after your st.set_page_config()
+# Inject the custom CSS
 inject_custom_css()
-
-
-# Add this right after your st.set_page_config()
-# add_theme_toggle()
 
 
 def calculate_sample(population, params):
