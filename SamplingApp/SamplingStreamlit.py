@@ -9,7 +9,13 @@ import pathlib
 import os
 from streamlit.components.v1 import html
 
-st.set_page_config(page_title="Sampling Calculator", layout="wide")
+st.set_page_config(page_title="Sampling Calculator",
+                   page_icon="🧊", layout="wide",
+                   menu_items={
+                       'Get Help': 'https://docs.streamlit.io',
+                       'Report a bug': 'https://github.com/streamlit/streamlit/issues',
+                       'About': "This is an example app."
+                   })
 
 # Define CSS directly in the script
 CUSTOM_CSS = """
