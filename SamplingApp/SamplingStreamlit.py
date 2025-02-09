@@ -8,11 +8,9 @@ from datetime import datetime, timedelta
 import pathlib
 import os
 from streamlit.components.v1 import html
-# import streamlit.components.v1 as components
 
-
-# styles.css
-"""
+# Define CSS directly in the script
+CUSTOM_CSS = """
 /* Reset and Base Styles */
 .main > div:first-child {
     padding-top: 0 !important;
@@ -112,14 +110,10 @@ from streamlit.components.v1 import html
 }
 """
 
-# Python function to inject custom CSS
-
 
 def inject_custom_css():
-    # with open('styles.css', 'r') as f:
-    #     custom_css = f.read()
-
-    # st.markdown(f"<style>{custom_css}</style>", unsafe_allow_html=True)
+    # Use the CSS string directly instead of reading from file
+    st.markdown(f"<style>{CUSTOM_CSS}</style>", unsafe_allow_html=True)
 
     # Add theme toggle component
     st.markdown('<div class="theme-toggle">', unsafe_allow_html=True)
@@ -141,6 +135,10 @@ def inject_custom_css():
         </script>
     """, height=50)
     st.markdown('</div>', unsafe_allow_html=True)
+
+
+# Inject the custom CSS
+inject_custom_css()
 
 
 # Inject the custom CSS
