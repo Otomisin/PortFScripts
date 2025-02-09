@@ -10,7 +10,7 @@ import os
 from streamlit.components.v1 import html
 
 st.set_page_config(page_title="Sampling Calculator",
-                   page_icon="🎲", layout="wide",
+                   page_icon="🧊", layout="wide",
                    menu_items={
                        'Get Help': 'https://docs.streamlit.io',
                        'Report a bug': 'https://github.com/streamlit/streamlit/issues',
