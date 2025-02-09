@@ -8,16 +8,51 @@ from datetime import datetime, timedelta
 import pathlib
 import os
 
-st.set_page_config(page_title="Sampling Calculator", layout="wide")
-
-# Define utility functions outside
-
-# Add this instead
-
 
 def inject_custom_css():
     custom_css = """
-    /* Base styles */
+    /* Tab styling - Added spacing and improved visibility */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 2px;  /* Increased gap between tabs */
+        background-color: transparent;
+        padding: 0 24px;  /* Added horizontal padding */
+        margin-bottom: 16px;  /* Space below tabs */
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        height: 50px;
+        background-color: transparent;
+        border-radius: 4px;
+        color: #084a88;
+        font-weight: 400;
+        padding: 0 12px;  /* Added padding inside tabs */
+        margin: 0 8px;    /* Added margin around tabs */
+    }
+
+    /* Active tab indicator */
+    .stTabs [aria-selected="true"] {
+        background-color: rgba(8, 74, 136, 0.1) !important;
+        color: #084a88 !important;
+        border-bottom: 2px solid #084a88;  /* Added bottom border for active tab */
+    }
+
+    /* Preview table container */
+    [data-testid="stExpander"] {
+        border: 1px solid #e6e6e6;
+        border-radius: 4px;
+        background-color: white;
+    }
+
+    /* Stats containers */
+    [data-testid="metric-container"] {
+        background-color: white;
+        border: 1px solid #e6e6e6 !important;
+        border-radius: 4px;
+        padding: 1rem;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    /* Rest of your base styles */
     .stApp {
         background-color: #F1F1F1;
         font-family: 'Helvetica Neue', Helvetica;
@@ -25,12 +60,10 @@ def inject_custom_css():
         color: #474747;
     }
 
-    /* Sidebar styling - Fixed contrast issues */
     [data-testid="stSidebar"] {
         background-color: #084a88 !important;
     }
 
-    /* Sidebar text color - Improved visibility */
     [data-testid="stSidebar"] .stMarkdown,
     [data-testid="stSidebar"] label,
     [data-testid="stSidebar"] .stTitle,
@@ -45,94 +78,27 @@ def inject_custom_css():
         font-weight: 500 !important;
     }
 
-    /* Expander styling in sidebar - Fixed contrast */
-    [data-testid="stSidebar"] .streamlit-expanderHeader {
-        background-color: transparent !important;
+    /* Dark mode support */
+    .dark [data-testid="stTabs"] [data-baseweb="tab"] {
         color: white !important;
-        font-weight: 600 !important;
     }
 
-    [data-testid="stSidebar"] .streamlit-expanderContent {
+    .dark [data-testid="stTabs"] [aria-selected="true"] {
+        color: white !important;
         background-color: rgba(255, 255, 255, 0.1) !important;
-        color: white !important;
     }
 
-    /* Button styles - Consistent styling */
-    .stButton>button {
-        background-color: #084a88 !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 4px !important;
-        padding: 0.75rem 1.5rem !important;
-        width: 100% !important;
-        font-weight: 500 !important;
-        transition: all 0.2s ease-in-out !important;
-    }
-
-    .stButton>button:hover {
-        background-color: #043666 !important;
-        transform: translateY(-1px);
-    }
-
-    /* Metrics styling */
-    .stMetric {
-        background-color: #F1F1F1;
-        border: 1px solid #084a88;
-        padding: 1rem;
-        border-radius: 4px;
-    }
-
-    /* DataFrame styling */
-    .dataframe {
-        font-family: 'Helvetica Neue', Helvetica;
-    }
-
-    .dataframe th {
-        background-color: #084a88;
-        color: white !important;
-    }
-
-    /* Headers */
-    h1, h2, h3, h4 { 
-        color: #084a88;
-        font-weight: 500;
-    }
-
-    /* Divider styling */
-    .sidebar-divider {
-        border-top: 1px solid rgba(255, 255, 255, 0.3);
-        margin: 20px 0;
-    }
-
-    /* MultiSelect styling - Fixed contrast */
-    [data-testid="stMultiSelect"] div[data-baseweb="select"] {
-        background-color: white;
-        color: #084a88;
-    }
-
-    [data-testid="stMultiSelect"] div[data-baseweb="tag"] {
-        background-color: #084a88 !important;
-        color: white !important;
-    }
-
-    /* Scrollbar styling */
-    ::-webkit-scrollbar-thumb {
-        background: #084a88;
-        border-radius: 5px;
-    }
-
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
+    /* Hover effect for tabs */
+    .stTabs [data-baseweb="tab"]:hover {
+        background-color: rgba(8, 74, 136, 0.05);
+        transition: all 0.2s ease;
     }
     """
     st.markdown(f"<style>{custom_css}</style>", unsafe_allow_html=True)
 
 
+st.set_page_config(page_title="Sampling Calculator", layout="wide")
 # Add this line right after your st.set_page_config()
-inject_custom_css()
-
-
-# Call this function at the start of your app
 inject_custom_css()
 
 
