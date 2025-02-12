@@ -3,6 +3,8 @@
 ## Overview
 The **DTM Report Dashboard** is a Streamlit web application designed to scrape, display, and filter reports published by the **IOM Displacement Tracking Matrix (DTM)**. The dashboard allows users to interactively explore reports, filter by country, and download filtered data as a CSV file.
 
+![GeoPoint Checker](./assets/DTM_Dashboard.jpg)
+
 ### Live Demo
 Access the live version here: [DTM Report Dashboard (Streamlit App)
 ](https://dtm-data-point.streamlit.app/)

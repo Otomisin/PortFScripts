@@ -2,6 +2,8 @@
 
 ## Overview
 The **PPS Sampling Calculator** is a web-based tool built with Streamlit for calculating **Probability Proportional to Size (PPS)** sampling for survey data. This tool allows users to upload survey data, configure sampling parameters, and generate sample selections using stratified sampling techniques. It provides an intuitive interface for statistical calculations and data visualization.
+![GeoPoint Checker](./assets/PpsEA.jpg)
+
 
 ## Features
 - **Upload Excel File**: Accepts Excel files containing survey data.
