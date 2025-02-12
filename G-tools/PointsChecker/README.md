@@ -2,6 +2,8 @@
 
 GeoPoint Checker is a Streamlit-based web application designed for efficient geographic data assessment. It focuses on verifying the accuracy of geographical data points against designated areas, using spatial analysis. This tool is particularly useful for field data verification, offering valuable insights to researchers, GIS professionals, and data analysts.
 
+![GeoPoint Checker](./GeoScreen.jpg)
+
 ## Features
 
 - **Data Upload**: Ability to upload CSV and GeoJSON files for data analysis.

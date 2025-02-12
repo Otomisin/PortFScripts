@@ -6,6 +6,9 @@ A robust ArcGIS toolbox for automated generation of enumeration areas based on p
 
 The PopEA Delineation Tool is designed to process population raster data (such as WorldPop) to create logical enumeration areas for surveys and census operations. It combines population distribution data with administrative boundaries to generate areas that reflect both population patterns and administrative divisions.
 
+![GeoPoint Checker](./PopEA.jpg)
+
+
 ## Features
 
 - Automated processing of population raster data
