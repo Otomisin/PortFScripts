@@ -118,7 +118,7 @@ def render_help_tab():
     st.markdown("""
     ### Quick Links
     - [📘 Official Documentation](https://github.com/Otomisin/PortFScripts/tree/main/SamplingApp)
-    - [📊 Example Datasets](https://github.com/Otomisin/PortFScripts/tree/main/SamplingApp/assets)
+    - [📊 Example Datasets](https://github.com/Otomisin/PortFScripts/raw/main/SamplingApp/assets/EA_Sampling_Demo_Data.xlsx)
     - [🔧 Report Issues](https://github.com/Otomisin/PortFScripts/issues)
     - [📧 Contact Support](mailto:dtmoperationsupport@iom.int)
     """)
