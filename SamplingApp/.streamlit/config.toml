@@ -6,9 +6,9 @@ base = "light"
 
 # Color configuration
 primaryColor = "#d33682"
-backgroundColor = "#002b36"
-secondaryBackgroundColor = "#586e75"
-textColor = "#ffffff"
+backgroundColor = "#edeff7"
+secondaryBackgroundColor = "#fcfdff"
+textColor = "#1c1c1c"
 
 [client]
 toolbarMode = "minimal"

@@ -110,6 +110,97 @@ def render_help_tab():
             """)
 
 
+def render_help_tab():
+    """Render the help tab content."""
+    st.title("Help & Documentation")
+
+    # Documentation Links Section
+    st.markdown("""
+    ### Quick Links
+    - [📘 Official Documentation](https://github.com/Otomisin/PortFScripts/tree/main/SamplingApp)
+    - [📊 Example Datasets](https://github.com/Otomisin/PortFScripts/tree/main/SamplingApp/assets)
+    - [🔧 Report Issues](https://github.com/Otomisin/PortFScripts/issues)
+    - [📧 Contact Support](mailto:dtmoperationsupport@iom.int)
+    """)
+
+    with st.expander("Column Configuration Help", expanded=True):
+        st.markdown("""
+        # Column Configuration Guide
+
+        - **Site Name Column**: Select the column containing the Primary Sampling Unit (PSU) names.
+          This is typically the village or site name where sampling will occur.
+        
+        - **PSU ID Column**: Select the column containing unique identifiers for each Primary 
+          Sampling Unit (PSU) or Enumeration Area. This ID must be unique for each sampling location.
+        
+        - **Households Population**: Select the column containing the number of households in each location.
+          This is your population size for sampling calculations.
+        
+        - **Admin Column**: Select the column containing administrative boundaries above the PSU level
+          (e.g., district, county). This is used for stratification and geographical distribution of samples.
+        
+        - **Strata Column**: Select the column used for stratification. This defines how the population
+          is divided into distinct groups for sampling purposes. e.g IDP, Non-IDPs or Returnees
+        """)
+
+    with st.expander("Sampling Parameters Help", expanded=False):
+        st.markdown("""
+        ### Sampling Parameters Guide
+        
+        - **Confidence Level**: The probability that the sample accurately represents the population
+          (typically 0.90 or 0.95)
+        
+        - **Margin of Error**: The maximum expected difference between the true population value and
+          the sample estimate (typically 0.05 or 0.10)
+        
+        - **Design Effect**: Adjustment factor that accounts for the complexity of the sampling design
+          (typically 1.5-2.0)
+        
+        - **Interviews per Cluster**: Number of interviews to be conducted in each selected cluster
+        
+        - **Reserve Percentage**: Additional sample size to account for non-response or invalid data
+          (typically 10-20%)
+        
+        - **Probability**: The expected proportion of the characteristic being measured
+          (use 0.5 if unknown)
+        """)
+
+    with st.expander("Results Interpretation", expanded=False):
+        st.markdown("""
+            ### Understanding Your Results
+            
+            #### Sampling Summary Metrics
+            - **Total Sample Size**: Number of households to be sampled before adding reserve samples
+            - **Sample with Reserve**: Total sample size including additional reserve samples to account 
+              for non-response
+            - **Total Clusters**: Number of distinct locations where sampling will take place
+            - **Sample Coverage**: Percentage of the total population included in the sample
+            
+            #### Output Data
+            - **Combined Grouped Data**: Shows the final selection of clusters and their corresponding 
+              sample sizes
+            - **Sample Data**: Displays the breakdown of samples by strata and administrative areas
+            """)
+
+    with st.expander("Additional Resources", expanded=False):
+        st.markdown("""
+        ### Additional Resources and Templates
+        
+        #### Sample Templates
+        - [📝 Download Sample Master List Template](https://github.com/Otomisin/PortFScripts/tree/main/SamplingApp/assets)
+        - [📊 View Sample Results](https://github.com/Otomisin/PortFScripts/tree/main/SamplingApp/others)
+        
+        #### Training Materials
+        - [📚 PPS Sampling Methodology Guide](https://github.com/Otomisin/PortFScripts/blob/main/SamplingApp/README.md)
+        - [🎥 Video Tutorial](https://github.com/Otomisin/PortFScripts/tree/main/SamplingApp)
+        
+        #### Support
+        Need help? Contact our support team:
+        - Email: [dtmoperationsupport@iom.int](mailto:dtmoperationsupport@iom.int)
+        - GitHub: [Report an Issue](https://github.com/Otomisin/PortFScripts/issues)
+        """)
+
+
 def render_sidebar():
     """Render the sidebar components and return user inputs."""
     st.sidebar.image(
