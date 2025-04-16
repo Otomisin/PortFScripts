@@ -1,0 +1,14 @@
+# config.toml
+
+[theme]
+# Base theme setting
+base = "light"
+
+# Color configuration
+primaryColor = "#d33682"
+backgroundColor = "#edeff7"
+secondaryBackgroundColor = "#fcfdff"
+textColor = "#1c1c1c"
+
+[client]
+toolbarMode = "minimal"
