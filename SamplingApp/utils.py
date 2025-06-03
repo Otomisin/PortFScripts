@@ -225,14 +225,13 @@ def create_sample_data(df, col_config, sampling_params=None):
 
         # Rename columns for clarity with a more explicit approach
         column_mapping = {
-            admin_col: 'Admin3',
             strata_col: 'Stratum',
             households_col: 'Population (HH)'
         }
         sample_data.rename(columns=column_mapping, inplace=True)
 
         # Sort by admin3 and stratum for consistency
-        sample_data = sample_data.sort_values(['Admin3', 'Stratum'])
+        sample_data = sample_data.sort_values([admin_col, 'Stratum'])
 
         # NEW CODE: Apply sample size calculation to each stratum individually
         if sampling_params is not None:
@@ -325,15 +324,24 @@ def process_sampling_batch(df, sample_data, params, col_config):
                 return pd.DataFrame()
 
         # Make sure we have the required columns in sample_data
-        for col in ['Admin3', 'Stratum', 'Sample_with_reserve']:
+        # Make sure we have the required columns in sample_data
+        # Make sure we have the required columns in sample_data
+        required_sample_cols = ['Stratum', 'Sample_with_reserve']
+        # Add the actual admin column name instead of hardcoded 'Admin3'
+        if col_config and 'master_data' in col_config:
+            admin_col_name = col_config['master_data']['admin3']
+            required_sample_cols.append(admin_col_name)
+
+        for col in required_sample_cols:
             if col not in sample_data.columns:
                 st.error(f"Required column '{col}' not found in sample data.")
                 return pd.DataFrame()
 
         # Group by both admin3 and strata
         for _, strata_row in sample_data.iterrows():
-            # Get the admin3 and stratum values from the sample data
-            admin_value = strata_row['Admin3']
+            # Get the admin and stratum values from the sample data
+            admin_col_name = col_config['master_data']['admin3']
+            admin_value = strata_row[admin_col_name]
             stratum_value = strata_row['Stratum']
 
             # Add debug information
@@ -546,8 +554,10 @@ def process_sampling(df, sample_data, params, col_config):
             available_psu_counts[(admin, stratum)] = len(group)
 
         # Compare with sample_data to identify potential issues
+        # Compare with sample_data to identify potential issues
         for _, row in sample_data.iterrows():
-            admin = row['Admin3']
+            admin_col_name = col_config['master_data']['admin3']
+            admin = row[admin_col_name]
             stratum = row['Stratum']
             required_replacements = math.ceil(
                 row['Clusters visited'] * params['replacement_percentage'])
@@ -933,8 +943,8 @@ def prepare_download_file(grouped_data, sample_display, original_df=None, col_co
 
                     # Create a mapping dict for the merge
                     # We need to map grouped_data column names to original column names
-                    if 'Admin3' in stratum_grouped.columns and admin_col in stratum_orig_for_merge.columns:
-                        merge_cols.append(('Admin3', admin_col))
+                    if admin_col in stratum_grouped.columns and admin_col in stratum_orig_for_merge.columns:
+                        merge_cols.append((admin_col, admin_col))
 
                     if site_id_col in stratum_orig_for_merge.columns:
                         merge_cols.append((site_id_col, site_id_col))
@@ -1479,8 +1489,9 @@ def update_main_display(sampled_data, df_sample, col_config, sampling_params=Non
         # Prepare sample display data with error handling
         try:
             # Make sure df_sample has all required columns
+            admin_col_name = col_config['master_data']['admin3']
             required_sample_cols = [
-                'Admin3', 'Sample', 'Sample_with_reserve', 'Stratum', 'Strata_name', 'Clusters visited']
+                admin_col_name, 'Sample', 'Sample_with_reserve', 'Stratum', 'Strata_name', 'Clusters visited']
 
             missing_cols = [
                 col for col in required_sample_cols if col not in df_sample.columns]
